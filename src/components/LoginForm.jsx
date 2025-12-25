@@ -1,9 +1,9 @@
 
-import { loginSchema } from "../auth/loginSchema";
+//import { loginSchema } from "../auth/loginSchema";
 import { loginRequest } from "../features/authApi";
 import React, { useState } from "react";
 import { Formik } from "formik";
-
+import { FaFacebookF, FaApple, FaGoogle } from "react-icons/fa";
 
 import {
   Box,
@@ -21,7 +21,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 
-import LoginLinks from "./LoginLinks";
+//import LoginLinks from "./LoginLinks";
 
 export default function LoginForm() {
   const [showPass, setShowPass] = useState(false);
@@ -36,8 +36,8 @@ export default function LoginForm() {
       ) : null}
 
       <Formik 
-        initialValues={{ email: "", password: "" }}
-        validationSchema={loginSchema}
+        initialValues={{ email: "", }}
+        //validationSchema={loginSchema}
         onSubmit={async (values, { setSubmitting }) => {
           setServerError("");
           try {
@@ -60,95 +60,157 @@ export default function LoginForm() {
           errors,
           isSubmitting,
         }) => (
-          <Box className="loginForm" component="form" onSubmit={handleSubmit} noValidate>
-            <TextField className="vvv"
+          <Box sx={{ p: 0, minHeight: 420 }} className="loginForm" component="form" onSubmit={handleSubmit} noValidate>
+
+            <Typography sx={{ mt: -4, mb: 10, ml: 0, fontSize: 12, color: "#374151" }}>
+              Email address
+            </Typography>
+
+            <TextField
+
               fullWidth
               margin="normal"
-              label="البريد "
+              label=""
               name="email"
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
               error={Boolean(touched.email && errors.email)}
               helperText={touched.email && errors.email ? errors.email : " "}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <EmailOutlinedIcon />
-                  </InputAdornment>
-                ),
+              sx={{
+                width: 420,
+                "& .MuiOutlinedInput-root": {
+                  height: 33,
+                  borderRadius: 1,
+                  overflow: "hidden",
+                  transform: "translateY(-50px)",
+                  mt: -5
+
+
+
+
+                },
+                "& .MuiOutlinedInput-input": {
+                  padding: "20px 16px",
+                },
               }}
+
             />
 
-            <TextField
-              fullWidth
-              margin="normal"
-              label="كلمة المرور"
-              name="password"
-              type={showPass ? "text" : "password"}
-              value={values.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={Boolean(touched.password && errors.password)}
-              helperText={touched.password && errors.password ? errors.password : " "}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <LockOutlinedIcon />
-                  </InputAdornment>
-                ),
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={() => setShowPass((s) => !s)}
-                      edge="end"
-                      aria-label="toggle password visibility"
-                    >
-                      {showPass ? <VisibilityOffOutlinedIcon /> : <VisibilityOutlinedIcon />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
 
-            <LoginLinks />
+
+
+
+
+
 
             <Button
               type="submit"
-              fullWidth
-              size="large"
+
               variant="contained"
               disabled={isSubmitting}
-              sx={{ py: 1.2, borderRadius: 2 }}
+              sx={{ borderRadius: 8, height: 30, fontSize: 12, width: 85, mt: -12, ml: 41 }}
             >
               {isSubmitting ? (
                 <>
                   <CircularProgress size={20} sx={{ mr: 1 }} />
-                  جاري تسجيل الدخول...
+                  جاري تسجيل البريددخول...
                 </>
               ) : (
-                "تسجيل "
+                "Continue "
               )}
             </Button>
 
-            <Divider sx={{ my: 2.5 }}>أو</Divider>
+            <Divider sx={{ my: 2.5, fontSize: 14, mt: -2 }}>Or</Divider>
+            <Button
+              fullWidth
+              size="large"
+              variant="outlined"
+              sx={{
+                mt: 2,
+                py: 1.2,
+                borderRadius: 6,
+                borderWidth: 1,
+                borderColor: "grey.300",
+                color: "grey.700",
+                "&:hover": {
+                  borderColor: "grey.500",
+                  borderWidth: 1,
+                  backgroundColor: "transparent",
+                  
+                },
+              }}
+              onClick={() => alert("")}
+            >
+              <FaApple className="text-[#1877F2] text-xl mr-3"/>
+              Continue with Google
+            </Button>
 
             <Button
               fullWidth
               size="large"
               variant="outlined"
-              sx={{ py: 1.2, borderRadius: 2 }}
+              sx={{
+                mt: 2,
+                py: 1.2,
+                borderRadius: 6,         
+                borderWidth: 1,
+                borderColor: "grey.300",  
+                color: "grey.700",
+                "&:hover": {
+                  borderColor: "grey.500", 
+                  borderWidth: 1,         
+                  backgroundColor: "transparent", 
+                },
+              }}
               onClick={() => alert("")}
             >
-              تسجيل الدخول بـ Google
+               <FaFacebookF />
+              Continue with Facebook
+              
+            </Button>
+            <Button
+              fullWidth
+              size="large"
+              variant="outlined"
+              sx={{
+                mt: 2,
+                py: 1.2,
+                borderRadius: 6,         
+                borderWidth: 1,
+                borderColor: "grey.300", 
+                color: "grey.700",
+                "&:hover": {
+                  borderColor: "grey.500", 
+                  borderWidth: 1,          
+                  backgroundColor: "transparent", 
+                },
+              }}
+              onClick={() => alert("")}
+            >
+              <FaGoogle />
+              Continue with Apple
             </Button>
 
             <Typography
+              component="a"
+              href="#"
               variant="caption"
-              sx={{ display: "block", mt: 2, color: "text.secondary" }}
+              sx={{
+                display: "block",
+                mt: 3,
+                ml: 0,
+                color: "#2563eb",
+                textDecoration: "underline",
+                textUnderlineOffset: "4px",
+                "&:hover": { color: "#1d4ed8" },
+                fontSize: 14, fontWeight: 540
+              }}
             >
-              بتسجيل الدخول أنت توافق على الشروط وسياسة الخصوصية.
+              Get help signing in
             </Typography>
+
+
           </Box>
         )}
       </Formik>
